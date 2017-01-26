@@ -2,6 +2,8 @@
 
 namespace TV\FindyourbandBundle\Controller;
 
+use TV\FindyourbandBundle\Entity\LALAL;
+
 use TV\FindyourbandBundle\Entity\Advert;
 use TV\FindyourbandBundle\Form\AdvertType;
 use TV\FindyourbandBundle\Form\AdvertEditType;
