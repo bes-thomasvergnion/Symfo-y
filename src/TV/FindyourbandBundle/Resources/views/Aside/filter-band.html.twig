@@ -1,0 +1,24 @@
+    
+    {{ form_start(form, {'attr': {'class': ''}}) }}
+
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+
+        <ul>
+            <li>
+            {{ form_label(form.genre, "Genre:", {'label_attr': {'class': ''}}) }}
+            {{ form_widget(form.genre, {'attr': {'class': ''}}) }}
+            </li>
+            <li>
+            {{ form_label(form.province, "Région:", {'label_attr': {'class': ''}}) }}
+            {{ form_widget(form.province, {'attr': {'class': ''}}) }}
+            </li>
+            <li>
+            {{ form_label(form.level, "Niveau:", {'label_attr': {'class': ''}}) }}
+            {{ form_widget(form.level, {'attr': {'class': ''}}) }}
+            </li>
+        </ul>
+        {{ form_widget(form.save, { 'label': 'Appliquer filtres' }) }}
+
+
+    {{ form_end(form) }}

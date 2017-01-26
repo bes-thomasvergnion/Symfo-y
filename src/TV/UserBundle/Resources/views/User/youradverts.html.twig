@@ -1,0 +1,31 @@
+{# src/TV/Findyourband/Resources/views/Pages/musicians.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container">
+            
+            <h2>Vos annonces:</h2>
+            <a class="btn normal" href="{{ path('tv_findyourband_adverts_add') }}">+ Ajouter une annonce</a>
+            <div>
+                {% for advert in user.adverts %}
+                    <div class="advert">
+                        <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}"><h3>{{ advert.title }}</h3></a>
+                        <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}"><img src="{{ asset ('bundles/fyb/images/instruments/' ~advert.instrument.image_instru.url) }}" alt="{{ advert.instrument.image_instru.alt }}" /></a>
+                        <ul>
+                            <li><b>Instrument:</b> {{ advert.instrument.name }}</li>
+                            <li><b>Genre:</b> {{ advert.genre.name }}</li>
+                            <li><b>Région:</b> {{ advert.province.name }}</li>
+                            <li><b>Auteur:</b> {{ advert.author }}</li>
+                        </ul>
+                        <div class="clearfix"></div>
+
+                        <h4>Description:</h4>
+                        <p>{{ advert.content|length > 200 ? advert.content|slice(0, 200) ~ '...' : advert.content  }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        
+        </div>
+    </div>
+{% endblock %}

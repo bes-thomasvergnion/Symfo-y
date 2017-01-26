@@ -1,0 +1,17 @@
+{% for user in listUsers %}
+    {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
+    {% set count = count + 1 %}
+        <a href="{{ path('tv_user_view', {'id': user.id}) }}">
+            <div class="musician {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+                <h3>{{ user.username }}</h3>
+                <img  src="{% if user.image.webPath is defined %}{{ asset(user.image.webPath) }}{%else%}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}  " alt="{% if user.image.webPath is defined %}{{ user.image.alt }}{%endif%}" />
+                <ul class="infos_profil">
+                    <li><b>Instrument:</b> {% if user.instrument.name is defined %}{{ user.instrument.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Genre:</b> {% if user.genre.name is defined %}{{ user.genre.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Niveau:</b> {% if user.level.name is defined %}{{ user.level.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Région:</b> {% if user.province.name is defined %}{{ user.province.name }}{%else%}Incomplet{%endif%}</li>
+                </ul>
+            </div>
+        </a>
+    {% if count == 3 or count%3 == 0%}<div class="clearfix"></div> </div>{% endif %}
+{% endfor %}

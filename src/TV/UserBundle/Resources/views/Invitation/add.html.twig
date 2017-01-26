@@ -1,0 +1,26 @@
+{# src/TV/Findyourband/Resources/views/User/edit.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container">
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                {# Les erreurs générales du formulaire. #}
+                {{ form_errors(form) }}
+                
+                <div class="form-1-2">
+                    {{ form_label(form.band, "Groupe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_widget(form.band, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                
+                {{ form_widget(form.save, {'attr': {'class': 'btn_form'}}) }}
+                
+            {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+{% endblock %}

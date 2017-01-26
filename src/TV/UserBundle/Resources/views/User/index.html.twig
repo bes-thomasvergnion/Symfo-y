@@ -1,0 +1,7 @@
+{# src/TV/User/Resources/views/User/index.html.twig #}
+
+{% extends "TVFindyourbandBundle::Pages/abm.html.twig" %}
+{% block title_page %} <h2>Musiciens</h2> {% endblock %}
+{% block abm_contenu %} 
+    {% include("TVUserBundle:User:list.html.twig") %}
+{% endblock %}

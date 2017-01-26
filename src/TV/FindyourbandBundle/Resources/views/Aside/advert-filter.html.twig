@@ -1,0 +1,11 @@
+{% block filtre %}
+    <aside>
+        <h4>Filtres:</h4>
+       {{ render(controller("TVFindyourbandBundle:Filter:indexAdvert")) }}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if titlePage == 'Annonces' %}
+                <a class="btn normal" href="{{ path('tv_findyourband_adverts_add') }}">+ Ajouter une annonce</a>
+            {% endif %}
+        {% endif %}
+    </aside>
+{% endblock %}

@@ -1,0 +1,60 @@
+tv_findyourband_homepage:
+    path:     /
+    defaults: 
+        _controller: TVFindyourbandBundle:Home:index
+    
+tv_findyourband_adverts:
+    path:    /adverts/{page}
+    defaults: 
+        _controller: TVFindyourbandBundle:Advert:index
+        page:        1
+    requirements:
+        page: \d*
+                
+tv_findyourband_adverts_view:
+    path:    /advert/{id}
+    defaults: 
+        _controller: TVFindyourbandBundle:Advert:view
+    requirements:
+        id: \d+
+        
+tv_findyourband_adverts_add:
+    path:    /adverts/add
+    defaults: 
+        _controller: TVFindyourbandBundle:Advert:add
+        
+
+tv_findyourband_adverts_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: TVFindyourbandBundle:Advert:edit
+    requirements:
+        id: \d+
+        
+tv_findyourband_adverts_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: TVFindyourbandBundle:Advert:delete
+    requirements:
+        id: \d+
+        
+tv_findyourband_filter_select_advert:
+    path:      /adverts/select
+    defaults:
+        _controller: TVFindyourbandBundle:Filter:selectAdvert
+    requirements:
+        _method: POST
+        
+tv_findyourband_filter_select_user:
+    path:      /musicians/select
+    defaults:
+        _controller: TVFindyourbandBundle:Filter:selectUser
+    requirements:
+        _method: POST
+        
+tv_findyourband_filter_select_band:
+    path:      /bands/select
+    defaults:
+        _controller: TVFindyourbandBundle:Filter:selectBand
+    requirements:
+        _method: POST

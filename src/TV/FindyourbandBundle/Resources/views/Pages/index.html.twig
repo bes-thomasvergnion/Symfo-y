@@ -1,0 +1,91 @@
+{# src/TV/Findyourband/Resources/views/Pages/index.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div id="wrapper_slider">
+        <div class="container">
+            <div class="content slider">
+                <div id="owl-slider" class="owl-carousel">
+                    <div> <img src="{{ asset('bundles/fyb/images/slide1.jpg') }}" alt="guitare"> <p>A la recherche d'un musicien ou d'un groupe ?</p> </div>
+                    <div> <img src="{{ asset('bundles/fyb/images/slide2.jpg') }}" alt="studio"> <p>Il suffit de vous inscrire et de lancer votre recherche</p></div>
+                    <div> <img src="{{ asset('bundles/fyb/images/slide3.jpg') }}" alt="micro"> <p>Affiné vos recherches grâçe aux différents filtres</p></div>
+                    <div> <img src="{{ asset('bundles/fyb/images/slide4.jpg') }}" alt="batterie"> <p>Des centaines de musiciens ont besoin de vous dans votre région</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper ">
+        <div class="container index">
+            <div class="line">
+                <h2>Nouvelles annonces</h2>
+                {% for advert in listAdverts %}
+                    <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}">
+                        <div class="column {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+                            <h3><b>Instrument recherché:</b> {{ advert.instrument.name }}</h3>
+                            <img src="{{ asset ('bundles/fyb/images/instruments/' ~advert.instrument.image_instru.url) }}" alt="{{ advert.instrument.image_instru.alt }}" />
+                            <ul>
+                                <li></li>
+                                <li><b>Genre:</b> {{ advert.genre.name }}</li>
+                                <li><b>Région:</b> {{ advert.province.name }}</li>
+                                <li><b>Auteur:</b> {{ advert.author.username|length > 16 ? advert.author|slice(0, 16) ~ '...' : advert.author  }}</li>
+                                <li><b>Niveau:</b> {{ advert.level.name }}</li>
+                            </ul>
+                        </div>
+                    </a>
+                {% endfor %}
+                <div class="clearfix"></div>
+            </div>
+            
+            <div class="line">
+                <h2>Nouveaux musiciens</h2>
+                {% for user in listUsers %}
+                    <a href="{{ path('tv_user_view', {'id': user.id}) }}">
+                        <div class="musician {% if loop.index == 4 or loop.index%4 == 0 %}last{%endif%}">
+                            <h3>{{ user.username }}</h3>
+                            <img  src="{% if user.image.webPath is defined %}{{ asset(user.image.webPath) }}{%else%}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}  " alt="{% if user.image.webPath is defined %}{{ user.image.alt }}{%endif%}" />
+                            <ul class="infos_profil">
+                                <li><b>Instrument:</b> {% if user.instrument.name is defined %}{{ user.instrument.name }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Genre:</b> {% if user.genre.name is defined %}{{ user.genre.name }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Niveau:</b> {% if user.level.name is defined %}{{ user.level.name }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Région:</b> {% if user.province.name is defined %}{{ user.province.name }}{%else%}Incomplet{%endif%}</li>
+                            </ul>
+                        </div>
+                    </a>
+                {% endfor %}
+                <div class="clearfix"></div>
+            </div>
+            
+            <div class="line ">
+                <h2>Nouveaux groupes</h2>
+                {% for band in listBands %}
+                    <a href="{{ path('tv_band_view', {'id': band.id}) }}">
+                        <div class="column {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+                            <h3>{{ band.name }}</h3>
+                            <img  src="{% if band.image.webPath is defined %}{{ asset(band.image.webPath) }}{%else%}{{ asset('bundles/fyb/images/band.jpg') }}{%endif%}  " alt="{% if band.image.webPath is defined %}{{ band.image.alt }}{%endif%}" />
+                            <ul class="infos_profil">
+                                <li><b>Membre(s):</b> 
+                                    {% for user in band.users %}
+                                        {{ user }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </li>
+                                <li><b>Genre:</b> {% if band.genre.name is defined %}{{ band.genre.name }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Niveau:</b> {% if band.level.name is defined %}{{ band.level.name }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Région:</b> {% if band.province.name is defined %}{{ band.province.name }}{%else%}Incomplet{%endif%}</li>
+                            </ul>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    
+    <script src="{{ asset('bundles/fyb/js/owl.carousel.js') }}"></script>
+    <script src="{{ asset('bundles/fyb/js/slider.js') }}"></script>
+{% endblock %}

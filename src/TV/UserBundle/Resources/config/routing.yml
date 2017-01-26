@@ -1,0 +1,138 @@
+tv_user_index:
+    path:    /musicians/{page}
+    defaults: 
+        _controller: TVUserBundle:User:index
+        page:        1
+    requirements:
+        page: \d*
+        
+tv_user_view:
+    path:    /user/{id}
+    defaults: 
+        _controller: TVUserBundle:User:view
+    requirements:
+        id: \d+
+        
+tv_user_edit:
+    path:      /user/edit/{id}
+    defaults:
+        _controller: TVUserBundle:User:edit
+    requirements:
+        id: \d+
+        
+tv_user_delete:
+    path:      /user/delete/{id}
+    defaults:
+        _controller: TVUserBundle:User:delete
+    requirements:
+        id: \d+
+        
+tv_user_yourbands:
+    path:    /yourbands/{id}
+    defaults: 
+        _controller: TVUserBundle:User:yourBands
+    requirements:
+        id: \d+
+        
+tv_user_youradverts:
+    path:    /youradverts/{id}
+    defaults: 
+        _controller: TVUserBundle:User:yourAdverts
+    requirements:
+        id: \d+
+        
+tv_user_bannish:
+    path:    /bannish/{id}
+    defaults: 
+        _controller: TVUserBundle:User:bannish
+    requirements:
+        id: \d+
+        
+tv_band_index:
+    path:    /bands/{page}
+    defaults:
+        _controller: TVUserBundle:Band:index
+        page:        1
+    requirements:
+        page: \d*
+        
+tv_band_view:
+    path:    /band/{id}
+    defaults:
+        _controller: TVUserBundle:Band:view
+    requirements:
+        id: \d+
+        
+tv_band_add:
+    path:    /band/add
+    defaults:
+        _controller: TVUserBundle:Band:add
+        
+tv_band_edit:
+    path:    /band/edit/{id}
+    defaults:
+        _controller: TVUserBundle:Band:edit
+    requirements:
+        id: \d+
+        
+tv_band_delete:
+    path:    /band/delete/{id}
+    defaults:
+        _controller: TVUserBundle:Band:delete
+    requirements:
+        id: \d+
+        
+tv_invitation_add:
+    path:    /invitation/musician/{id}
+    defaults:
+        _controller: TVUserBundle:Invitation:add
+    requirements:
+        id: \d+
+        
+tv_invitation_index:
+    path:    /invitation/index
+    defaults:
+        _controller: TVUserBundle:Invitation:index
+        
+tv_invitation_accept:
+    path:    /invitation/accept/{id}
+    defaults:
+        _controller: TVUserBundle:Invitation:accept
+    requirements:
+        id: \d+
+        
+tv_invitation_delete:
+    path:    /invitation/delete/{id}
+    defaults:
+        _controller: TVUserBundle:Invitation:delete
+    requirements:
+        id: \d+
+        
+tv_admin_index:
+    path:    /admin/index
+    defaults:
+        _controller: TVUserBundle:Admin:index
+        
+tv_admin_adverts:
+    path:    /admin/adverts/{page}
+    defaults:
+        _controller: TVUserBundle:Admin:adverts
+        page:        1
+    requirements:
+        page: \d*
+        
+tv_admin_users:
+    path:    /admin/users/{page}
+    defaults:
+        _controller: TVUserBundle:Admin:users
+        page:        1
+    requirements:
+        page: \d*
+        
+tv_admin_bands:
+    path:    /admin/bands/{page}
+    defaults:
+        _controller: TVUserBundle:Admin:bands
+        page:        1
+    requirements:
+        page: \d*

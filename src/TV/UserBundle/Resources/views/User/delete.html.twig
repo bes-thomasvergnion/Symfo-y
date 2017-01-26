@@ -1,0 +1,29 @@
+{# src/TV/User/Resources/views/User/delete.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container">
+            <h2>Supprimer votre compte</h2>
+            <p>Etes-vous certain de vouloir supprimer votre compte ?</p>
+            <p>Vous perderez toutes vos données</p>
+
+            {# On met l'id de l'annonce dans la route de l'action du formulaire #}
+            <form action="{{ path('tv_user_delete', {'id': user.id}) }}" method="post">
+                <a href="{{ path('tv_user_view', {'id': user.id}) }}" class="btn modify">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Retour à l'annonce
+                </a>
+
+                {# Ici j'ai écrit le bouton de soumission à la main #}
+                <input type="submit" value="Supprimer" class="btn delete" />
+
+                {# Ceci va générer le champ CSRF #}
+                {{ form_rest(form) }}
+
+            </form>         
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endblock %}

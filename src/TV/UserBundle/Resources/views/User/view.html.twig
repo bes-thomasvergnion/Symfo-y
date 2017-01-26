@@ -1,0 +1,99 @@
+{# src/TV/User/Resources/views/User/view.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container single">
+            {% if currentUser == user %}
+                <ul class="change_profil">
+                    <li><a class="btn normal" href="{{ path('tv_user_edit', {'id': user.id}) }}">Modifier Profil</a></li>
+                    <li><a class="btn normal" href="{{ path('fos_user_change_password') }}">Modifier mot de passe</a></li>
+                    <li><a class="btn normal" href="{{ path('tv_user_delete', {'id': user.id}) }}">Supprimer Profil</a></li>
+                </ul>
+            {% else %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <ul class="change_profil">
+                        <li><a class="btn normal invitation" href="{{ path('tv_invitation_add', {'id': user.id}) }}">+ Inviter a votre groupe</a></li>
+                        <li><a class="btn normal" href="{{ path('tv_user_bannish', {'id': user.id}) }}">Bannir Utilisateur</a></li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+            
+            
+            <h2>{{ user }}</h2>
+            <img class="img_profil" src="{% if user.image is not null %}{{ asset(user.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}" alt="{% if user.image is not null %}{{ user.image.alt }}{% else %}Image Profile{%endif%}" />
+            <ul class="infos_profil">
+                <li><b>Instrument:</b> {% if user.instrument.name is defined %}{{ user.instrument.name }}{%else%}Incomplet{%endif%}</li>
+                <li><b>Genre:</b> {% if user.genre.name is defined %}{{ user.genre.name }}{%else%}Incomplet{%endif%}</li>
+                <li><b>Niveau:</b> {% if user.level.name is defined %}{{ user.level.name }}{%else%}Incomplet{%endif%}</li>
+                <li><b>Région:</b> {% if user.province.name is defined %}{{ user.province.name }}{%else%}Incomplet{%endif%}</li>
+            </ul>
+            <div class="clearfix"></div>
+            
+            <h3>Description personelle:</h3>
+            <p>{% if user.content is not empty %}{{ user.content|nl2br }}{%else%}Incomplet{%endif%}<p>
+                
+            {% if user.video is not empty %}
+                <h3>Démo en vidéo:</h3>
+                <div>
+                    <iframe width="800" height="500" src="{{user.video}}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            {% endif %}
+            
+            {% if user.bands is not empty %}
+            <h3>Mes groupes:</h3>
+            {% for band in user.bands %}
+                {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
+                {% set count = count + 1 %}
+                    <a href="{{ path('tv_band_view', {'id': band.id}) }}">
+                        <div class="band {% if loop.index == 2 or loop.index%2 == 0 %}last{%endif%}">
+                            <h3>{{ band.name }}</h3>
+                            <img  src="{% if band.image.webPath is defined %}{{ asset(band.image.webPath) }}{%else%}{{ asset('bundles/fyb/images/band.jpg') }}{%endif%}  " alt="{% if band.image.webPath is defined %}{{ band.image.alt }}{%endif%}" />
+                            <ul class="infos_profil">
+                                <li><b>Administrateur:</b> {% if band.administrator is defined %}{{ band.administrator }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Membre(s):</b> 
+                                    {% for user in band.users %}
+                                        {{ user }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </li>
+                                <li><b>Genre:</b> {% if band.genre.name is defined %}{{ band.genre.name }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Niveau:</b> {% if band.level.name is defined %}{{ band.level.name }}{%else%}Incomplet{%endif%}</li>
+                                <li><b>Région:</b> {% if band.province.name is defined %}{{ band.province.name }}{%else%}Incomplet{%endif%}</li>
+                            </ul>
+                        </div>
+                    </a>
+                {% if count == 2 or count%2 == 0%}<div class="clearfix"></div> </div>{% endif %}
+            {% endfor %}
+            <div class="clearfix"></div>
+            {% endif %}
+            
+            {% if user.adverts is not empty %}
+            <h3>Mes annonces:</h3>
+            {% for advert in user.adverts %}
+                {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
+                {% set count = count + 1 %}
+                    <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}">
+                        <div class="advert">
+                            <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}"><h3>{{ advert.title }}</h3></a>
+                            <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}"><img src="{{ asset ('bundles/fyb/images/instruments/' ~advert.instrument.image_instru.url) }}" alt="{{ advert.instrument.image_instru.alt }}" /></a>
+                            <ul>
+                                <li><b>Instrument:</b> {{ advert.instrument.name }}</li>
+                                <li><b>Genre:</b> {{ advert.genre.name }}</li>
+                                <li><b>Région:</b> {{ advert.province.name }}</li>
+                                <li><b>Auteur:</b> {{ advert.author }}</li>
+                            </ul>
+                            <div class="clearfix"></div>
+
+                            <h4>Description:</h4>
+                            <p>{{ advert.content|length > 200 ? advert.content|slice(0, 200) ~ '...' : advert.content  }}</p>
+                        </div>
+                    </a>
+                {% if count == 2 or count%2 == 0%}<div class="clearfix"></div> </div>{% endif %}
+            {% endfor %}
+            <div class="clearfix"></div>
+            {% endif %}
+            
+        </div>
+    </div>
+{% endblock %}

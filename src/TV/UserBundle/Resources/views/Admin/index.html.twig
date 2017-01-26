@@ -1,0 +1,99 @@
+{# src/TV/User/Resources/views/Admin/index.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container admin">
+            {% include("TVUserBundle:Admin:header.html.twig") %}
+            <h3>Nouvelles annonces</h3>
+            <table>
+                <tr>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Auteur</th>
+                    <th>Actions</th>
+                </tr>
+
+                {% for advert in listAdverts %}
+                    <tr>
+                        <td>{{ advert.title }}</td>
+                        <td>{{ advert.content|length > 200 ? advert.content|slice(0, 200) ~ '...' : advert.content  }}</td>
+                        <td>{{ advert.author }}</td>
+                        <td class="actions">
+                            <a class="btn btn-amd modify first" href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}">Voir</a>
+                            <a class="btn btn-amd delete" href="{{ path('tv_findyourband_adverts_delete', {'id': advert.id}) }}">Supprimer</a>
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+             </table>
+             
+            <h3>Nouveaux utilisateurs</h3>
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Statut</th>
+                    <th>Description</th>
+                    <th>Vidéo</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for user in listUsers %}
+                    <tr>
+                        <td><img class="img_profil_admin" src="{% if user.image is not null %}{{ asset(user.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}" alt="{% if user.image is not null %}{{ user.image.alt }}{% else %}Image Profile{%endif%}" /></td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        {% if user.enabled == true %}
+                            <td class="statut"><img src="{{ asset('bundles/fyb/images/butonvert.png') }}">Activé</td>
+                        {% else %}
+                            <td class="statut"><img src="{{ asset('bundles/fyb/images/butonrouge.png') }}">Désactivé</td>
+                        {% endif %}
+                        <td>{{ user.content|length > 200 ? user.content|slice(0, 200) ~ '...' : user.content  }}</td>
+                        <td>{{ user.video }}</td>
+                        <td class="actions">
+                            <a class="btn btn-amd modify first" href="{{ path('tv_user_view', {'id': user.id}) }}">Voir</a>
+                            <a class="btn btn-amd delete" href="{{ path('tv_user_bannish', {'id': user.id}) }}">Bannir</a>
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+
+            </table>
+                
+            <h3>Nouveaux Groupes</h3>
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Membre(s)</th>
+                    <th>Description</th>
+                    <th>Vidéo</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for band in listBands %}
+                    <tr>
+                        <td><img class="img_profil_admin" src="{% if band.image is not null %}{{ asset(band.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/band.jpg') }}{%endif%}" alt="{% if band.image is not null %}{{ band.image.alt }}{% else %}Image Profile{%endif%}" /></td>
+                        <td>{{ band.name }}</td>
+                        <td>
+                            {% for user in band.users %}
+                                {{ user }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="description">{{ band.content|length > 200 ? band.content|slice(0, 200) ~ '...' : band.content  }}</td>
+                        <td>{{ band.video }}</td>
+                        <td class="actions">
+                            <a class="btn btn-amd modify first" href="{{ path('tv_band_view', {'id': band.id}) }}">Voir</a>
+                            <a class="btn btn-amd delete" href="{{ path('tv_band_delete', {'id': band.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+             </table>
+        
+        </div>
+    </div>
+{% endblock %}

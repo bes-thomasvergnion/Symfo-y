@@ -1,0 +1,28 @@
+{# src/TV/User/Resources/views/User/bannish.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container">
+            <h2>Désactiver le compte</h2>
+            
+            <p>Etes vous sur de vouloir désactivé le compte: {{ user.name }}
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                {# Les erreurs générales du formulaire. #}
+                {{ form_errors(form) }}
+                
+                <div class="form-1-2">
+                    {{ form_label(form.enabled, "Genre:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_widget(form.enabled, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                {{ form_widget(form.save, {'attr': {'class': 'btn_form'}}) }}
+                
+            {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_end(form) }}
+        
+        </div>
+    </div>
+{% endblock %}

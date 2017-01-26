@@ -1,0 +1,56 @@
+{# src/TV/Findyourband/Resources/views/Pages/abm.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+<div class="wrapper">
+    <div class="container">
+        <h2 class="title_center">{{ titlePage }}</h2>
+        {% if titlePage == 'Annonces' %}
+            {% include("TVFindyourbandBundle:aside:advert-filter.html.twig") %}
+        {% elseif titlePage == 'Musiciens' %}
+            {% include("TVFindyourbandBundle:aside:user-filter.html.twig") %}
+        {% elseif titlePage == 'Groupes' %}
+            {% include("TVFindyourbandBundle:aside:band-filter.html.twig") %}
+        {% endif %}
+    
+        <div class="amg" id="abm_contenu">
+            
+            {% block abm_contenu %} {% endblock %}
+            
+            <div class="clearfix"></div>
+            
+            <div class="pagination-container">
+                <div class="fixer-container">
+                    <ul class="pagination">
+                        {% for p in range(1, nbPages) %}
+                            <li{% if p == page %} class="active"{% endif %}>
+                                <a href="{% if titlePage == 'Annonces' %}
+                                            {{ path('tv_findyourband_adverts', {'page': p}) }}
+                                         {% elseif titlePage == 'Musiciens' %}
+                                            {{ path('tv_user_index', {'page': p}) }}
+                                         {% elseif titlePage == 'Groupes' %}
+                                            {{ path('tv_band_index', {'page': p}) }}
+                                         {% endif %}">{{ p }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+            
+            
+
+    </div>
+    <div class="clearfix"></div>
+    
+    
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        var url = "{{ asset('bundles/fyb/images/ajax-loader.gif') }}";
+    </script>
+    <script src="{{ asset('bundles/fyb/js/filters.js') }}"></script>
+{% endblock %}

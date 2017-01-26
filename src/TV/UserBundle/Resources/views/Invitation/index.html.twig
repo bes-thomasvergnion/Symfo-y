@@ -1,0 +1,25 @@
+{# src/TV/Findyourband/Resources/views/User/edit.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container">
+            
+            <h2>Vos invitations</h2>
+            {%if user.invitations is not empty %}
+                {% for invitation in user.invitations %}
+                        <div class="advert">
+                            <p>Vous avez reçu un invitation de <span>{{ invitation.sender }}</span> pour rejoindre 
+                            son groupe: <span>{{ invitation.band.name }}</span></p>
+                            <a class="btn btn-amd modify" href="{{ path('tv_invitation_accept', {'id': invitation.id}) }}">Accepter</a>
+                            <a class="btn btn-amd delete" href="{{ path('tv_invitation_delete', {'id': invitation.id}) }}">Refuser</a>
+                        </div>
+                {% endfor %}
+            {% else %}
+                <p>Vous n'avez reçu auncune invitation. </p>
+            {% endif %}
+            
+        </div>
+    </div>
+{% endblock %}

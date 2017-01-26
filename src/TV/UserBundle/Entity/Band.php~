@@ -1,0 +1,254 @@
+<?php
+
+namespace TV\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Band
+ *
+ * @ORM\Table(name="band")
+ * @ORM\Entity(repositoryClass="TV\UserBundle\Repository\BandRepository")
+ */
+class Band
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="video", type="string", length=255, nullable=true)
+     */
+    private $video;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TV\FindyourbandBundle\Entity\Province", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $province;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TV\FindyourbandBundle\Entity\Level", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $level;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TV\FindyourbandBundle\Entity\Genre", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $genre;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="TV\UserBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $image;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="TV\UserBundle\Entity\User", mappedBy="user")
+    */
+    private $users;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Band
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Band
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set video
+     *
+     * @param string $video
+     *
+     * @return Band
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    /**
+     * Get video
+     *
+     * @return string
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+    
+    /**
+     * Set province
+     *
+     * @param string $province
+     *
+     * @return Band
+     */
+    public function setProvince($province)
+    {
+        $this->province = $province;
+
+        return $this;
+    }
+
+    /**
+     * Get province
+     *
+     * @return string
+     */
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /**
+     * Set level
+     *
+     * @param string $level
+     *
+     * @return Band
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return string
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * Set genre
+     *
+     * @param \TV\FindyourbandBundle\Entity\Genre $genre
+     *
+     * @return Band
+     */
+    public function setGenre(\TV\FindyourbandBundle\Entity\Genre $genre = null)
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Get genre
+     *
+     * @return \TV\FindyourbandBundle\Entity\Genre
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \TV\UserBundle\Entity\Image $image
+     *
+     * @return Band
+     */
+    public function setImage(Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \TV\UserBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+}
+

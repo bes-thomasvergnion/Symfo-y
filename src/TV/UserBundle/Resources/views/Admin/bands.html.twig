@@ -1,0 +1,56 @@
+{# src/TV/User/Resources/views/Admin/index.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container admin">
+            {% include("TVUserBundle:Admin:header.html.twig") %}
+            <h3>Nouveaux Groupes</h3>
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Membre(s)</th>
+                    <th>Description</th>
+                    <th>Vidéo</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for band in listBands %}
+                    <tr>
+                        <td><img class="img_profil_admin" src="{% if band.image is not null %}{{ asset(band.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/band.jpg') }}{%endif%}" alt="{% if band.image is not null %}{{ band.image.alt }}{% else %}Image Profile{%endif%}" /></td>
+                        <td>{{ band.name }}</td>
+                        <td>
+                            {% for user in band.users %}
+                                {{ user }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="description">{{ band.content|length > 200 ? band.content|slice(0, 200) ~ '...' : band.content  }}</td>
+                        <td>{{ band.video }}</td>
+                        <td class="actions">
+                            <a class="btn btn-amd modify first" href="{{ path('tv_band_view', {'id': band.id}) }}">Voir</a>
+                            <a class="btn btn-amd delete" href="{{ path('tv_band_delete', {'id': band.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+             </table>
+                
+            <div class="pagination-container">
+                <div class="fixer-container">
+                    <ul class="pagination">
+                        {% for p in range(1, nbPages) %}
+                            <li{% if p == page %} class="active"{% endif %}>
+                                <a href="{{ path('tv_admin_bands', {'page': p}) }}">{{ p }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+                    
+             <div class="clearfix"></div>
+        
+        </div>
+    </div>
+{% endblock %}

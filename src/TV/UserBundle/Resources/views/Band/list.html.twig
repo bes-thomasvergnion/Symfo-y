@@ -1,0 +1,21 @@
+{% for band in listBands %}
+    {% if count == 0 or count%2 == 0 %}<div class="row"> {% endif %}
+    {% set count = count + 1 %}
+        <a href="{{ path('tv_band_view', {'id': band.id}) }}">
+            <div class="band {% if loop.index == 2 or loop.index%2 == 0 %}last{%endif%}">
+                <h3>{{ band.name }}</h3>
+                <img  src="{% if band.image.webPath is defined %}{{ asset(band.image.webPath) }}{%else%}{{ asset('bundles/fyb/images/band.jpg') }}{%endif%}  " alt="{% if band.image.webPath is defined %}{{ band.image.alt }}{%endif%}" />
+                <ul class="infos_profil">
+                    <li><b>Membre(s):</b> 
+                        {% for user in band.users %}
+                            {{ user }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li><b>Genre:</b> {% if band.genre.name is defined %}{{ band.genre.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Niveau:</b> {% if band.level.name is defined %}{{ band.level.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Région:</b> {% if band.province.name is defined %}{{ band.province.name }}{%else%}Incomplet{%endif%}</li>
+                </ul>
+            </div>
+        </a>
+    {% if count == 2 or count%2 == 0%}<div class="clearfix"></div> </div>{% endif %}
+{% endfor %}
