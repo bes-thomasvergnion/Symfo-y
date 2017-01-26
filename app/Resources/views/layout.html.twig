@@ -1,0 +1,79 @@
+{# app/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" />
+        <meta charset="utf-8">
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        
+        <title>{% block title %}Find Your Band{% endblock %}</title>
+        <script src="{{ asset('bundles/fyb/js/html5shiv.js') }}"></script>
+        <script src="{{ asset('bundles/fyb/js/html5shiv-printshiv.js') }}"></script>
+        {% stylesheets filter='cssrewrite' 'bundles/fyb/css/style.css' %}
+            <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+            <link href="{{ asset_url }}" rel="stylesheet" type="text/css" media="all" />
+            <link href="{{ asset('bundles/fyb/css/font-awesome.min.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/fyb/css/owl.carousel.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/fyb/css/owl.theme.css') }}" rel="stylesheet" type="text/css" media="all" />
+        {% endstylesheets %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div id="connexion">
+                    <img src="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}{% if app.user.image.url is defined %}{{ asset(app.user.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{% endif %}" alt="profil" id="photo_profil"/>
+                    <ul>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li id="user">
+                                <a id="user_name"  href="#">{{ app.user.username }}</a>
+                                <ul class="menu_connexion">
+                                    <li><a href="{{ path('tv_user_view', {'id': app.user.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i>Profil</a></li>
+                                    <li><a href="{{ path('tv_user_yourbands', {'id': app.user.id}) }}"><i class="fa fa-users" aria-hidden="true"></i>Vos Groupes</a></li>
+                                    <li><a href="{{ path('tv_user_youradverts', {'id': app.user.id}) }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i>Vos Annonces</a></li>
+                                    <li><a href="{{ path('tv_invitation_index') }}"><i class="fa fa-paper-plane" aria-hidden="true"></i>Invitations ({{ app.user.invitations|length }})</a></li>
+                                    {% if is_granted('ROLE_ADMIN')%}
+                                        <li><a href="{{ path('tv_admin_index') }}"><i class="fa fa-tachometer" aria-hidden="true"></i>Admin</a></li>
+                                    {% endif %}
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-power-off" aria-hidden="true"></i>Déconnexion</a></li>
+                                </ul>
+                            </li>
+
+                        {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                            |
+                            <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+                        {% endif %}
+                        
+                    </ul>
+                </div>
+
+                <a href="{{ path('tv_findyourband_homepage') }}"><div id="logo">
+                    <img src="{{ asset('bundles/fyb/images/logo.png') }}">
+                    <h1>Find Your Band</h1>
+                </div></a>
+                    
+                <nav>
+                    <ul>
+                        <li class="current_page_item"><a href="{{ path('tv_findyourband_homepage') }}" title=""><div id="fond_bouton"><div id="bouton"> </div></div><p>Accueil</p></a></li>
+                        <li><a href="{{ path('tv_findyourband_adverts') }}" title=""><div id="fond_bouton"><div id="bouton"> </div></div><p>Annonces</p></a></li>
+                        <li><a href="{{ path('tv_user_index') }}" title=""><div id="fond_bouton"><div id="bouton"> </div></div><p>Musiciens</p></a></li>
+                        <li><a href="{{ path('tv_band_index') }}" title=""><div id="fond_bouton"><div id="bouton"> </div></div><p>Groupes</p></a></li>
+                    </ul>
+                </nav>	
+            </div>
+        </header>
+        
+        {% block body %}{% endblock %}
+        
+        <footer>
+            <p>&copy; Thomas Vergion. All rights reserved.</p>
+        </footer>
+        
+        <script src="{{ asset('bundles/fyb/js/jquery-3.1.1.js') }}"></script>
+        <script src="{{ asset('bundles/fyb/js/menu.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
