@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
-class UserType extends AbstractType
+class UserBannishType extends AbstractType
 {
     /**
      * {@inheritdoc}
