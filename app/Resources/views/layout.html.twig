@@ -24,7 +24,29 @@
         <header>
             <div class="container">
                 <div id="connexion">
-                    <img src="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}{% if app.user.image.url is defined %}{{ asset(app.user.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{% endif %}" alt="profil" id="photo_profil"/>
+                    {#<img src="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}{% if app.user.image.url is defined %}{{ asset(app.user.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{% endif %}" alt="profil" id="photo_profil"/>#}
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if app.user.image.url is defined %}
+                            <div id="div_profil">
+                                
+                            </div>
+                            <style type="text/css">
+                                #div_profil{
+                                    background: url({{ asset(app.user.image.webPath) }}) no-repeat;
+                                    background-position:50% 50%;
+                                    background-size: 60px;
+                                    width: 60px;
+                                    height: 60px;
+                                    -moz-border-radius: 50%;
+                                    -webkit-border-radius: 50%;
+                                    border-radius: 50%;
+                                }
+                            </style>
+                            {% else %}<img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
+                        {% endif %}
+                    {% else %}<img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
+                    {% endif %}
+                        
                     <ul>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li id="user">
