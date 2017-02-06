@@ -82,7 +82,7 @@ class AdvertController extends Controller
             $em->persist($advert);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enrgistrée.');
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 
             return $this->redirectToRoute('tv_findyourband_adverts_view', array('id' => $advert->getId()));
         }
@@ -147,19 +147,28 @@ class AdvertController extends Controller
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
         // Cela permet de protéger la suppression d'annonce contre cette faille
         $form = $this->get('form.factory')->create();
+        
+        $user = $advert->getAuthor();
+        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        
+        if($currentUser == $user or $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->remove($advert);
-            $em->flush();
+            if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $em->remove($advert);
+                $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', "L'annonce a bien été supprimée.");
+                $request->getSession()->getFlashBag()->add('info', "L'annonce a bien été supprimée.");
 
-            return $this->redirectToRoute('tv_findyourband_homepage');
+                return $this->redirectToRoute('tv_findyourband_homepage');
+            }
+
+            return $this->render('TVFindyourbandBundle:Advert:delete.html.twig', array(
+                'advert' => $advert,
+                'form'   => $form->createView(),
+            ));
         }
-
-        return $this->render('TVFindyourbandBundle:Advert:delete.html.twig', array(
-            'advert' => $advert,
-            'form'   => $form->createView(),
-        ));
+        else{
+            return $this->redirectToRoute('tv_findyourband_adverts_view', array('id' => $advert->getId()));
+        }
     }
 }

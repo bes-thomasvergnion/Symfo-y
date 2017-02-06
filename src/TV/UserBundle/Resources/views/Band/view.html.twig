@@ -6,31 +6,44 @@
     <div class="wrapper">
         <div class="container single">          
             <h2>{{ band.name }}</h2>
-            <img class="img_profil" src="{% if band.image is not null %}{{ asset(band.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/band.jpg') }}{%endif%}" alt="{% if band.image is not null %}{{ band.image.alt }}{% else %}Image Profile{%endif%}" />
-            <ul class="infos_profil">
-                <li><b>Membre(s):</b> 
-                    {% for user in band.users %}
-                        {{ user }}{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </li>
-                <li><b>Genre:</b> {% if band.genre.name is defined %}{{ band.genre.name }}{%else%}Incomplet{%endif%}</li>
-                <li><b>Niveau:</b> {% if band.level.name is defined %}{{ band.level.name }}{%else%}Incomplet{%endif%}</li>
-                <li><b>Région:</b> {% if band.province.name is defined %}{{ band.province.name }}{%else%}Incomplet{%endif%}</li>
-            </ul>
-            <div class="clearfix"></div>
+            <div class="line">
+                <img class="img_band" src="{% if band.image is not null %}{{ asset(band.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/band.jpg') }}{%endif%}" alt="{% if band.image is not null %}{{ band.image.alt }}{% else %}Image Profile{%endif%}" />
+                <ul class="infos_profil">
+                    <li><b>Membre(s):</b> 
+                        {% for user in band.users %}
+                            {{ user }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li><b>Genre:</b> {% if band.genre.name is defined %}{{ band.genre.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Niveau:</b> {% if band.level.name is defined %}{{ band.level.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Région:</b> {% if band.province.name is defined %}{{ band.province.name }}{%else%}Incomplet{%endif%}</li>
+                    <li><b>Administrateur:</b> {{ band.administrator }}</li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
             
-            <h3>Description du groupe:</h3>
-            <p>{% if band.content is not empty %}{{ band.content|nl2br }}{%else%}Incomplet{%endif%}<p>
-                
-            {% if band.video is not empty %}
-                <h3>Démo en vidéo:</h3>
-                <div>
-                    <iframe width="800" height="500" src="{{band.video}}" frameborder="0" allowfullscreen></iframe>
-                </div>
+            <div class="line">
+                <h3>Description du groupe:</h3>
+                <p>{% if band.content is not empty %}{{ band.content|nl2br }}{%else%}Incomplet{%endif%}<p>
+            </div>
+            
+            <div class="line">
+                {% if band.video is not empty %}
+                    <h3>Démo en vidéo:</h3>
+                    <div>
+                        <iframe width="800" height="500" src="{{video_preg}}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                {% endif %}
+            </div>
+            
+            {% if is_granted('ROLE_USER') %}
+                {% if app.user.username == band.administrator or is_granted('ROLE_ADMIN') %}
+                    <div class="line">
+                        <a class="btn btn-amd modify" href="{{ path('tv_band_edit', {'id': band.id}) }}">Modifier</a>
+                        <a class="btn btn-amd delete" href="{{ path('tv_band_delete', {'id': band.id}) }}">Supprimer</a>
+                    </div>
+                {% endif %}
             {% endif %}
-            
-             <a class="btn btn-amd modify" href="{{ path('tv_band_edit', {'id': band.id}) }}">Modifier</a>
-            <a class="btn btn-amd delete" href="{{ path('tv_band_delete', {'id': band.id}) }}">Supprimer</a>
         </div>
     </div>
 {% endblock %}

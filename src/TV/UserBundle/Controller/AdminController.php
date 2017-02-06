@@ -35,7 +35,7 @@ class AdminController extends Controller
             'listAdverts' => $listAdverts,
             'listBands' => $listBands,
             'listUsers' => $listUsers,
-            'page' => $page,
+            'titlePage' => $titlePage,
         ));
     }
     

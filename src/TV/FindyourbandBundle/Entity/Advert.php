@@ -38,7 +38,7 @@ class Advert
 
     /**
      * @ORM\ManyToOne(targetEntity="TV\UserBundle\Entity\User", inversedBy="adverts", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $author;
 

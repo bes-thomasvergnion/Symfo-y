@@ -25,20 +25,33 @@ class BandRepository extends \Doctrine\ORM\EntityRepository
         return new Paginator($query, true);
     }
     
-    public function getBandsWithFilters(\TV\FindyourbandBundle\Entity\Search $search)
+    public function getBandsWithFilters(\TV\FindyourbandBundle\Entity\Search $search, $page, $nbPerPage)
     {
-        $query = $this->createQueryBuilder('a')
-            ->where('a.province = :province')
-            ->setParameter('province', $search->getProvince())
-            ->andWhere('a.genre = :genre')
-            ->setParameter('genre', $search->getGenre())
-            ->andWhere('a.level = :level')
-            ->setParameter('level', $search->getLevel())
-            ->orderBy('a.date', 'DESC')
-            ->getQuery()
-        ;
+        $query = $this->createQueryBuilder('g');
+        $andX = $query->expr()->andX();
 
-        return $query->getResult();
+        if(null !== $search->getProvince()){
+            $andX->add('g.province = :province');
+            $query->setParameter('province', $search->getProvince());
+        }
+        if(null !== $search->getGenre()){
+            $andX->add('g.genre = :genre');
+            $query->setParameter('genre', $search->getGenre());
+        }
+        if(null !== $search->getLevel()){
+            $andX->add('g.level = :level');
+            $query->setParameter('level', $search->getLevel());
+        }
+        if(!empty($search->getInstrument()) || !empty($search->getLevel()) || !empty($search->getGenre()) || !empty($search->getProvince())){
+            $query->where($andX);
+        }
+        $query->orderBy('g.date', 'DESC');
+        
+        $query
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+          ;
+        return new Paginator($query, true);
     }
     
     public function findFull($id){
@@ -74,12 +87,19 @@ class BandRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
     
-    public function getLikeQueryBuilder($user)
+    public function getLikeQueryBuilder($user, \TV\UserBundle\Entity\User $receiver)
     {
-        return $this
-        ->createQueryBuilder('c')
+        $bandsId = array_map(function(\TV\UserBundle\Entity\Band $band){return $band->getId();},$receiver->getBands()->toArray());
+        $qb= $this
+        ->createQueryBuilder('c');
+        $qb
         ->where('c.administrator = :user')
         ->setParameter('user', $user)
-      ;
+//        ->innerJoin('c.users', 'd')
+            //->addSelect('d')
+//            ->andWhere($qb->expr()->notIn('d.id', [$receiver->getId()]))
+            ->andWhere($qb->expr()->notIn('c.id', $bandsId))
+        ;
+        return $qb;
     }
 }

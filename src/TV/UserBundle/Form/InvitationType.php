@@ -17,11 +17,14 @@ class InvitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->user = $options['user'];
+        $receiver = $this->user = $options['receiver'];
+        
+        
         $builder
             ->add('band', EntityType::class, array(
                 'class' => 'TVUserBundle:Band',
-                'query_builder' => function(BandRepository $repository) use($user) {
-                return $repository->getLikeQueryBuilder($user);
+                'query_builder' => function(BandRepository $repository) use($user, $receiver) {
+                return $repository->getLikeQueryBuilder($user, $receiver);
                 },
                 'choice_label' => 'name',
             ))
@@ -38,6 +41,7 @@ class InvitationType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'TV\UserBundle\Entity\Invitation',
             'user' => NULL,
+            'receiver' => NULL,
         ));
     }
 }

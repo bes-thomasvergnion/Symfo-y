@@ -45,14 +45,16 @@ class BandController extends Controller
         $em = $this->getDoctrine()->getManager();
        
         $band = $em->getRepository('TVUserBundle:Band')->findFull($id);
-
+        $video = $band->getVideo();
+        $video_preg = preg_replace('#watch\?v=#', "embed/", $video);
        
         if (null === $band) {
           throw new NotFoundHttpException("L'utilistaeur d'id ".$id." n'existe pas.");
         }
 
         return $this->render('TVUserBundle:Band:view.html.twig', array(
-            'band'           => $band,
+            'band' => $band,
+            'video_preg' => $video_preg,
         ));
     }
 //    

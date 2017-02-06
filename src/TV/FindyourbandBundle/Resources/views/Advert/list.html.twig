@@ -1,20 +1,34 @@
 {% for advert in listAdverts %}
-    <div class="advert">
-        <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}"><h3>{{ advert.title }}</h3></a>
-        <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}"><img src="{{ asset ('bundles/fyb/images/instruments/' ~advert.instrument.image_instru.url) }}" alt="{{ advert.instrument.image_instru.alt }}" /></a>
-        <ul>
-            <li><b>Instrument:</b> {{ advert.instrument.name }}</li>
-            <li><b>Genre:</b> {{ advert.genre.name }}</li>
-            <li><b>Région:</b> {{ advert.province.name }}</li>
-            <li><b>Auteur:</b> {{ advert.author }}</li>
-        </ul>
-        <div class="clearfix"></div>
+    <a href="{{ path('tv_findyourband_adverts_view', {'id': advert.id}) }}">
+        <div class="advert">
+            <h3>{{ advert.title }}</h3>
+            <img src="{{ asset ('bundles/fyb/images/instruments/' ~advert.instrument.image_instru.url) }}" alt="{{ advert.instrument.image_instru.alt }}" />
+            <ul>
+                <li><b>Instrument:</b> {{ advert.instrument.name }}</li>
+                <li><b>Genre:</b> {{ advert.genre.name }}</li>
+                <li><b>Région:</b> {{ advert.province.name }}</li>
+                <li><b>Auteur:</b> {{ advert.author }}</li>
+            </ul>
+            <div class="clearfix"></div>
 
-        <h4>Description:</h4>
-        <p>{{ advert.content|length > 200 ? advert.content|slice(0, 200) ~ '...' : advert.content  }}</p>
-    </div>
+            <h4>Description:</h4>
+            <p>{{ advert.content|length > 200 ? advert.content|slice(0, 200) ~ '...' : advert.content  }}</p>
+        </div>
+    </a>
 {% else %}
     <div>
         <h2>Aucun résultat</h2>
     </div>
 {% endfor %}
+
+{#<div class="pagination-container">
+    <div class="fixer-container">
+        <ul class="pagination">
+            {% for p in range(1, nbPages) %}
+                <li{% if p == page %} class="active"{% endif %}>
+                    <a href="{{ path('tv_findyourband_filter_select_advert', {'page': p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>#}

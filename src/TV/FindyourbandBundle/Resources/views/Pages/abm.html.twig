@@ -6,14 +6,9 @@
 <div class="wrapper">
     <div class="container">
         <h2 class="title_center">{{ titlePage }}</h2>
-        {% if titlePage == 'Annonces' %}
-            {% include("TVFindyourbandBundle:aside:advert-filter.html.twig") %}
-        {% elseif titlePage == 'Musiciens' %}
-            {% include("TVFindyourbandBundle:aside:user-filter.html.twig") %}
-        {% elseif titlePage == 'Groupes' %}
-            {% include("TVFindyourbandBundle:aside:band-filter.html.twig") %}
-        {% endif %}
-    
+        
+        {% include("TVFindyourbandBundle:aside:aside.html.twig") %}
+
         <div class="amg" id="abm_contenu">
             
             {% block abm_contenu %} {% endblock %}

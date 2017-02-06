@@ -49,15 +49,11 @@
                 Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
                 et tous les champs cachés (type « hidden »). #}
                 
-                {{ form_widget(form.save, {'attr': {'class': 'btn_form'}}) }}
+                {{ form_widget(form.save, { 'label': 'Ajouter annonce' }) }}
                 
             {# Fermeture de la balise <form> du formulaire HTML #}
             {{ form_end(form) }}
         
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ tinymce_init({'use_callback_tinymce_init': true, 'theme': {'simple': {'menubar': false}}}) }}
 {% endblock %}

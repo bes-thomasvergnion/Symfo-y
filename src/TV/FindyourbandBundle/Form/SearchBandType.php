@@ -19,6 +19,8 @@ class SearchBandType extends AbstractType
         $builder
             ->add('genre', EntityType::class, array(
                 'class' => 'TVFindyourbandBundle:Genre',
+                'placeholder' => '--',
+                'required'  => false,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.name', 'ASC');
@@ -27,6 +29,8 @@ class SearchBandType extends AbstractType
             ))
             ->add('province', EntityType::class, array(
                 'class' => 'TVFindyourbandBundle:Province',
+                'placeholder' => '--',
+                'required'  => false,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.name', 'ASC');
@@ -35,6 +39,8 @@ class SearchBandType extends AbstractType
             ))
             ->add('level', EntityType::class, array(
                 'class' => 'TVFindyourbandBundle:Level',
+                'placeholder' => '--',
+                'required'  => false,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.id', 'ASC');

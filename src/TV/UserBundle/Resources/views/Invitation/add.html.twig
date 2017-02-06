@@ -5,18 +5,19 @@
 {% block findyourband_body %}
     <div class="wrapper">
         <div class="container">
+            <h2>Dans quel groupe voulez-vous inviter {{ receiver }}</h2>
             {{ form_start(form, {'attr': {'class': 'form'}}) }}
 
                 {# Les erreurs générales du formulaire. #}
                 {{ form_errors(form) }}
                 
-                <div class="form-1-2">
+                <div class="form-1">
                     {{ form_label(form.band, "Groupe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
                     {{ form_widget(form.band, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 
                 
-                {{ form_widget(form.save, {'attr': {'class': 'btn_form'}}) }}
+                {{ form_widget(form.save, { 'label': 'Envoyer invitation' }) }}
                 
             {# Fermeture de la balise <form> du formulaire HTML #}
             {{ form_end(form) }}

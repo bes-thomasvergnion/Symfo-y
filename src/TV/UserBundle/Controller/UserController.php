@@ -47,6 +47,10 @@ class UserController extends Controller
         
         $actived = $user->isEnabled();
         $count = 0;
+        $count2 = 0;
+        
+        $video = $user->getVideo();
+        $video_preg = preg_replace('#watch\?v=#', "embed/", $video);
 
         if (null === $user) {
           throw new NotFoundHttpException("L'utilistaeur d'id ".$id." n'existe pas.");
@@ -57,6 +61,8 @@ class UserController extends Controller
                 'currentUser' => $currentUser,
                 'user' => $user,
                 'count' => $count,
+                'count2' => $count2,
+                'video_preg' => $video_preg,
             ));
         }
         else{
@@ -153,7 +159,7 @@ class UserController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('TVUserBundle:User')->find($id);
-
+      
         return $this->render('TVUserBundle:User:youradverts.html.twig', array(
             'count' => $count,
             'user' => $user,
@@ -163,18 +169,31 @@ class UserController extends Controller
     /**
     * @Security("has_role('ROLE_ADMIN')")
     */
-    public function bannishAction($id) 
+    public function bannishAction($id, Request $request) 
     {
         $em = $this->getDoctrine()->getManager(); 
         $user = $em->getRepository('TVUserBundle:User')->find($id);
         
-//        $hisadverts = $user->getAdverts();
-//        
-//        $em->remove($hisadverts);
-        $user->setEnabled(false);
-        $em->flush();
+        $hisadverts = $em->getRepository('TVFindyourbandBundle:Advert')->findByAuthor($user);
+        
+        $form = $this->get('form.factory')->create();
+        
+        
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            foreach($hisadverts as $hisadvert){
+                $em->remove($hisadvert);
+            }
+            $user->setEnabled(false);
+            $em->flush();
+            
+            return $this->redirectToRoute('tv_admin_users');
+        }
+        return $this->render('TVUserBundle:User:bannish.html.twig', array(
+          'user' => $user,
+          'form'   => $form->createView(),
+        ));
 
-        return $this->redirectToRoute('tv_user_view', array('id' => $user->getId()));
+        
         
     }
 }

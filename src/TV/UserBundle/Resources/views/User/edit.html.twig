@@ -57,7 +57,7 @@
                 {{ form_label(form.image, "Photo de profil", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
                 {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
                 
-                {{ form_widget(form.save, {'attr': {'class': 'btn_form'}}) }}
+                {{ form_widget(form.save, { 'label': 'Modifier profil' }) }}
                 
             {# Fermeture de la balise <form> du formulaire HTML #}
             {{ form_end(form) }}

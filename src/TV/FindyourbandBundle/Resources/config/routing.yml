@@ -39,22 +39,35 @@ tv_findyourband_adverts_delete:
         id: \d+
         
 tv_findyourband_filter_select_advert:
-    path:      /adverts/select
+    path:      /adverts/select/{page}
     defaults:
         _controller: TVFindyourbandBundle:Filter:selectAdvert
+        page:  1
     requirements:
         _method: POST
+        page: \d+
         
 tv_findyourband_filter_select_user:
-    path:      /musicians/select
+    path:      /musicians/select/{page}
     defaults:
         _controller: TVFindyourbandBundle:Filter:selectUser
+        page:  1
     requirements:
         _method: POST
+        page: \d+
         
 tv_findyourband_filter_select_band:
-    path:      /bands/select
+    path:      /bands/select/{page}
     defaults:
         _controller: TVFindyourbandBundle:Filter:selectBand
+        page:  1
     requirements:
         _method: POST
+        page: \d+
+        
+tv_findyourband_contact_add:
+    path:    /contact/add/{id}
+    defaults: 
+        _controller: TVFindyourbandBundle:Contact:add
+    requirements:
+        id: \d+

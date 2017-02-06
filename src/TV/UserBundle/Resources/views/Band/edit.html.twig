@@ -46,7 +46,7 @@
                 et tous les champs cachés (type « hidden »). #}
                 
                 {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
-                {{ form_widget(form.save, {'attr': {'class': 'btn_form'}}) }}
+                {{ form_widget(form.save, { 'label': 'Modifier groupe' }) }}
                 
             {# Fermeture de la balise <form> du formulaire HTML #}
             {{ form_end(form) }}
