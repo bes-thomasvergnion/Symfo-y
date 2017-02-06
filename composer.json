@@ -1,6 +1,7 @@
 {
     "name": "thoma/symfony",
     "license": "proprietary",
+    "description": "Projet Web Dynamique: Find Your Band",
     "type": "project",
     "autoload": {
         "psr-4": {
