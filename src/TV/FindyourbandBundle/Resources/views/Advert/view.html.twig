@@ -1,43 +1,43 @@
-    {# src/TV/Findyourband/Resources/views/Advert/view.html.twig #}
+{# src/TV/Findyourband/Resources/views/Advert/view.html.twig #}
 
-    {% extends "TVFindyourbandBundle::layout.html.twig" %}
-    
-    {% block title %}
-        {{ parent() }} - {{ advert.title }}
-    {% endblock %}
-    
-    {% block findyourband_body %}
-        <div class="wrapper">
-            <div class="container single">
-                <h2>{{ advert.title }}</h2>
-                <div class="line">
-                    <img class="img_advert" src="{{ asset ('bundles/fyb/images/instruments/' ~advert.instrument.image_instru.url) }}" alt="{{ advert.instrument.image_instru.alt }}" />
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
 
-                    <ul>
-                        <li><b>Instrument:</b> {{ advert.instrument.name }}</li>
-                        <li><b>Genre:</b> {{ advert.genre.name }}</li>
-                        <li><b>Région:</b> {{ advert.province.name }}</li>
-                        <li><b>Niveau:</b> {{ advert.level.name }}</li>
-                        <li><b>Posté par:</b> {{ advert.author }}</li>
-                    </ul>
-                    <p id="date"><b>Posté le:</b> {{ advert.date|date('d/m/Y') }}</p>
-                </div>
-                
-                <div class="line">
-                    <h3>Description:</h3>
-                    <p id="description">{{ advert.content|nl2br }}</p>
-                </div>
-                
-                <div class="line">
-                    {% if is_granted('ROLE_USER') %}
-                    {% if app.user.username == advert.author or is_granted('ROLE_ADMIN') %}
-                        <a class="btn btn-amd modify" href="{{ path('tv_findyourband_adverts_edit', {'id': advert.id}) }}">Modifier</a>
-                        <a class="btn btn-amd delete" href="{{ path('tv_findyourband_adverts_delete', {'id': advert.id}) }}">Supprimer</a>
-                    {% endif %}
-                    {% endif %}
-                </div>
-                
+{% block title %}
+    {{ parent() }} - {{ advert.title }}
+{% endblock %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container single">
+            <h2>{{ advert.title }}</h2>
+            <div class="line">
+                <img class="img_advert" src="{{ asset ('bundles/fyb/images/instruments/' ~advert.instrument.image_instru.url) }}" alt="{{ advert.instrument.image_instru.alt }}" />
+
+                <ul>
+                    <li><b>Instrument:</b> {{ advert.instrument.name }}</li>
+                    <li><b>Genre:</b> {{ advert.genre.name }}</li>
+                    <li><b>Région:</b> {{ advert.province.name }}</li>
+                    <li><b>Niveau:</b> {{ advert.level.name }}</li>
+                    <li><b>Posté par:</b> {{ advert.author }}</li>
+                </ul>
+                <p id="date"><b>Posté le:</b> {{ advert.date|date('d/m/Y') }}</p>
             </div>
-            <div class="clearfix"></div>
+
+            <div class="line">
+                <h3>Description:</h3>
+                <p id="description">{{ advert.content|nl2br }}</p>
+            </div>
+
+            <div class="line">
+                {% if is_granted('ROLE_USER') %}
+                {% if app.user.username == advert.author or is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-amd modify" href="{{ path('tv_findyourband_adverts_edit', {'id': advert.id}) }}">Modifier</a>
+                    <a class="btn btn-amd delete" href="{{ path('tv_findyourband_adverts_delete', {'id': advert.id}) }}">Supprimer</a>
+                {% endif %}
+                {% endif %}
+            </div>
+
         </div>
-    {% endblock %}
+    <div class="clearfix"></div>
+    </div>
+{% endblock %}

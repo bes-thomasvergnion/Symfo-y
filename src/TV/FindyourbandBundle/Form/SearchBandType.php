@@ -73,8 +73,4 @@ class SearchBandType extends AbstractType
     {
         return 'tv_findyourbandbundle_search';
     }
-
-
 }
-
-

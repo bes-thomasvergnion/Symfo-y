@@ -123,6 +123,4 @@ class FilterController extends Controller
             'page' => $page,
         ));
     }
-    
-    
 }
