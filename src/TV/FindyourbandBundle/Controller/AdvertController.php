@@ -108,7 +108,7 @@ class AdvertController extends Controller
         /* Récupération de l'utilisateur courant */
         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        if($currentUser == $user or $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+        if($currentUser == $user || $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
             $form = $this->get('form.factory')->create(AdvertEditType::class, $advert);
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -151,7 +151,7 @@ class AdvertController extends Controller
         $user = $advert->getAuthor();
         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
         
-        if($currentUser == $user or $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+        if($currentUser == $user || $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
                 $em->remove($advert);

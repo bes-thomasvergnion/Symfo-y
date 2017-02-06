@@ -6,7 +6,6 @@ use TV\UserBundle\Entity\Invitation;
 use TV\UserBundle\Entity\User;
 use TV\UserBundle\Form\InvitationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 

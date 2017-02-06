@@ -3,12 +3,13 @@
 namespace TV\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AdminController extends Controller
 {
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function indexAction()
     {
         $titlePage = 'Tableau de bord';
@@ -39,6 +40,9 @@ class AdminController extends Controller
         ));
     }
     
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function advertsAction($page)
     {
         if ($page < 1) {
@@ -62,6 +66,9 @@ class AdminController extends Controller
         ));
     }
     
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function usersAction($page)
     {
         if ($page < 1) {
@@ -85,6 +92,9 @@ class AdminController extends Controller
         ));
     }
     
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function bandsAction($page)
     {
         if ($page < 1) {

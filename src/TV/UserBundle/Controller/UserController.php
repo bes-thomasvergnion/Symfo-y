@@ -56,7 +56,7 @@ class UserController extends Controller
           throw new NotFoundHttpException("L'utilistaeur d'id ".$id." n'existe pas.");
         }
         
-        if($actived == true or $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+        if($actived === true || $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
             return $this->render('TVUserBundle:User:view.html.twig', array(
                 'currentUser' => $currentUser,
                 'user' => $user,
