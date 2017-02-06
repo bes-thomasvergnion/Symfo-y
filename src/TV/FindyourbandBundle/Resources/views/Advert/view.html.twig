@@ -1,7 +1,11 @@
     {# src/TV/Findyourband/Resources/views/Advert/view.html.twig #}
 
     {% extends "TVFindyourbandBundle::layout.html.twig" %}
-
+    
+    {% block title %}
+        {{ parent() }} - {{ advert.title }}
+    {% endblock %}
+    
     {% block findyourband_body %}
         <div class="wrapper">
             <div class="container single">

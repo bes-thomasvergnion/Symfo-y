@@ -5,7 +5,6 @@ namespace TV\FindyourbandBundle\Controller;
 use TV\FindyourbandBundle\Entity\Contact;
 use TV\FindyourbandBundle\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 

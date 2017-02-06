@@ -2,6 +2,11 @@
 
 {% extends "TVFindyourbandBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    <link href="{{ asset('bundles/fyb/css/owl.carousel.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/fyb/css/owl.theme.css') }}" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
 {% block findyourband_body %}
     <div id="wrapper_slider">
         <div class="container">
@@ -85,7 +90,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    
     <script src="{{ asset('bundles/fyb/js/owl.carousel.js') }}"></script>
     <script src="{{ asset('bundles/fyb/js/slider.js') }}"></script>
 {% endblock %}

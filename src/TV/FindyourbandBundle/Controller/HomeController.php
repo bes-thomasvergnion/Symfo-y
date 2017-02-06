@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function indexAction()
     {
-        $page = 'Accueil';
+        $titlePage = 'Accueil';
 
         $listAdverts = $this->getDoctrine()
             ->getManager()
@@ -32,7 +32,7 @@ class HomeController extends Controller
             'listAdverts' => $listAdverts,
             'listBands' => $listBands,
             'listUsers' => $listUsers,
-            'page' => $page,
+            'titlePage' => $titlePage,
         ));
     }
 }
