@@ -1,0 +1,43 @@
+{# src/TV/Findyourband/Resources/views/Contact/add.html.twig #}
+
+{% extends "TVFindyourbandBundle::layout.html.twig" %}
+
+{% block findyourband_body %}
+    <div class="wrapper">
+        <div class="container">
+            <h2>Formulaire de contact</h2>
+            
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                {# Les erreurs générales du formulaire. #}
+                {{ form_errors(form) }}
+                <div class="form-1">
+                    {{ form_label(form.subject, "Sujet", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                 <div class="form-1">
+                    {{ form_label(form.email, "Votre E-mail", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+ 
+                <div class="error">
+                    {{ form_errors(form.content) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(form.content, "Contenu de l'annonce", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_widget(form.content, {'attr': {'class': 'tinymce form-control'}}) }}
+                </div>
+                {# Génération automatique des champs pas encore écrits.
+                Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+                et tous les champs cachés (type « hidden »). #}
+                
+                {{ form_widget(form.save, {'attr': {'class': 'btn_form'}}) }}
+                
+            {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_end(form) }}
+        
+        </div>
+    </div>
+{% endblock %}
