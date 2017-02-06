@@ -73,6 +73,9 @@ assetic:
     use_controller: "%kernel.debug%"
     filters:
         cssrewrite: ~
+        jsqueeze:   ~
+        scssphp:
+          formatter: 'Leafo\ScssPhp\Formatter\Compressed'
 
 # FOSUser
 fos_user:

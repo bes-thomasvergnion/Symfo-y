@@ -11,13 +11,11 @@
         <title>{% block title %}Find Your Band{% endblock %}</title>
         <script src="{{ asset('bundles/fyb/js/html5shiv.js') }}"></script>
         <script src="{{ asset('bundles/fyb/js/html5shiv-printshiv.js') }}"></script>
-        {% stylesheets filter='cssrewrite' 'bundles/fyb/css/style.css' %}
-            <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+        {% stylesheets filter='cssrewrite, ?scssphp' 'bundles/fyb/css/style.css' 'bundles/fyb/css/font-awesome.min.css' %}           
             <link href="{{ asset_url }}" rel="stylesheet" type="text/css" media="all" />
-            <link href="{{ asset('bundles/fyb/css/font-awesome.min.css') }}" rel="stylesheet" />
-            <link href="{{ asset('bundles/fyb/css/owl.carousel.css') }}" rel="stylesheet" />
-            <link href="{{ asset('bundles/fyb/css/owl.theme.css') }}" rel="stylesheet" type="text/css" media="all" />
         {% endstylesheets %}
+        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
@@ -30,18 +28,8 @@
                             <div id="div_profil">
                                 
                             </div>
-                            <style type="text/css">
-                                #div_profil{
-                                    background: url({{ asset(app.user.image.webPath) }}) no-repeat;
-                                    background-position:50% 50%;
-                                    background-size: 60px;
-                                    width: 60px;
-                                    height: 60px;
-                                    -moz-border-radius: 50%;
-                                    -webkit-border-radius: 50%;
-                                    border-radius: 50%;
-                                }
-                            </style>
+                            {% include "TVFindyourbandBundle:Pages:divprofil.html.twig" %}
+                            
                             {% else %}<img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
                         {% endif %}
                     {% else %}<img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
@@ -93,9 +81,11 @@
         <footer>
             <p>&copy; Thomas Vergion. All rights reserved.</p>
         </footer>
-        
-        <script src="{{ asset('bundles/fyb/js/jquery-3.1.1.js') }}"></script>
-        <script src="{{ asset('bundles/fyb/js/menu.js') }}"></script>
+       
+        {% javascripts filter='?jsqueeze' 'bundles/fyb/js/jquery-3.1.1.js' 'bundles/fyb/js/menu.js' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
