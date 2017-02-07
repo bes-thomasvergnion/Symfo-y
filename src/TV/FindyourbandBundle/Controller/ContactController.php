@@ -20,8 +20,8 @@ class ContactController extends Controller
         $user = $em->getRepository('TVFindyourbandBundle:Contact')->find($id);
         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
         
-        $receiverEmail = $user->getEmail();
-        $senderEmail = $currentUser->getEmail();
+//        $receiverEmail = $user->getEmail();
+//        $senderEmail = $currentUser->getEmail();
         
         
                 
@@ -33,14 +33,14 @@ class ContactController extends Controller
             $em->persist($contact);
             $em->flush();
             
-            $subject= $contact->getSubject();
-            $content= $contact->getContent();
+//            $subject= $contact->getSubject();
+//            $content= $contact->getContent();
             
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             
             $message = \Swift_Message::newInstance()
                 ->setSubject('Test envoie de mail')
-                ->setFrom('arthuredubois@hotmail.com')
+                ->setFrom($this->getParameter('mailer_user'))
                 ->setTo('thomasvergnion@gmail.com')
                 ->setBody($this->renderView('TVFindyourbandBundle:Contact:email.html.twig'));
             
