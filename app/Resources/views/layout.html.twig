@@ -7,14 +7,13 @@
         <meta charset="utf-8">
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-        
         <title>{% block title %}Find Your Band{% endblock %}</title>
         <script src="{{ asset('bundles/fyb/js/html5shiv.js') }}"></script>
         <script src="{{ asset('bundles/fyb/js/html5shiv-printshiv.js') }}"></script>
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
-        {% stylesheets filter='cssrewrite, ?scssphp' 'bundles/fyb/css/style.css' 'bundles/fyb/css/font-awesome.min.css' %}           
-            <link href="{{ asset_url }}" rel="stylesheet" type="text/css" media="all" />
-        {% endstylesheets %}
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">       
+        <link href="{{ asset('bundles/fyb/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('bundles/fyb/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" media="all" />
+        
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
