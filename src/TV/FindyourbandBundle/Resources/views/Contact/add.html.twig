@@ -15,11 +15,6 @@
                     {{ form_label(form.subject, "Sujet", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
                     {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                
-                 <div class="form-1">
-                    {{ form_label(form.email, "Votre E-mail", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                </div>
  
                 <div class="error">
                     {{ form_errors(form.content) }}

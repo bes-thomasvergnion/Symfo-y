@@ -17,32 +17,31 @@ class ContactController extends Controller
         $contact = new Contact();
         
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('TVFindyourbandBundle:Contact')->find($id);
+        $user = $em->getRepository('TVUserBundle:User')->find($id);
         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
         
-//        $receiverEmail = $user->getEmail();
-//        $senderEmail = $currentUser->getEmail();
-        
-        
-                
+        $receiverEmail = $user->getEmail();
+        $senderEmail = $currentUser->getEmail();
+              
         $form = $this->get('form.factory')->create(ContactType::class, $contact);
         
          if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
                
+            $contact->setEmail($senderEmail);
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
             
-//            $subject= $contact->getSubject();
-//            $content= $contact->getContent();
+            $subject= $contact->getSubject();
+            $content= $contact->getContent();
             
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             
             $message = \Swift_Message::newInstance()
-                ->setSubject('Test envoie de mail')
+                ->setSubject($subject)
                 ->setFrom($this->getParameter('mailer_user'))
-                ->setTo('thomasvergnion@gmail.com')
-                ->setBody($this->renderView('TVFindyourbandBundle:Contact:email.html.twig'));
+                ->setTo($receiverEmail)
+                ->setBody($this->renderView('TVFindyourbandBundle:Contact:email.html.twig', array('content' => $content, 'senderEmail' => $senderEmail)));
             
             $this->get('mailer')->send($message);
 
