@@ -90,7 +90,7 @@ class FilterController extends Controller
     {
         $form = $this->get('form.factory')->create(SearchBandType::class, null, ['action'=>$this->generateUrl('tv_findyourband_filter_select_band',[], \Symfony\Component\Routing\Router::ABSOLUTE_URL)]);
 
-        return $this->render('TVFindyourbandBundle:Aside:filter-band.html.twig', array(
+        return $this->render('TVFindyourbandBundle:Aside:filter.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -98,7 +98,7 @@ class FilterController extends Controller
     public function selectBandAction(Request $request, $page)
     {
         $search = new Search();
-        $form = $this->createForm(SearchType::class, $search);    
+        $form = $this->createForm(SearchBandType::class, $search);    
         $count = 0;
         $nbPerPage = 20;
         

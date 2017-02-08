@@ -53,7 +53,7 @@ class UserController extends Controller
         $video_preg = preg_replace('#watch\?v=#', "embed/", $video);
 
         if (null === $user) {
-          throw new NotFoundHttpException("L'utilistaeur d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("L'utilistaeur d'id ".$id." n'existe pas.");
         }
         
         if($actived === true || $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
@@ -120,23 +120,23 @@ class UserController extends Controller
         $user = $em->getRepository('TVUserBundle:User')->find($id);
 
         if (null === $user) {
-          throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
 
         $form = $this->get('form.factory')->create();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          $em->remove($user);
-          $em->flush();
+            $em->remove($user);
+            $em->flush();
 
-          $request->getSession()->getFlashBag()->add('info', "L'utilisateur a bien été supprimée.");
+            $request->getSession()->getFlashBag()->add('info', "L'utilisateur a bien été supprimée.");
 
-          return $this->redirectToRoute('tv_findyourband_homepage');
+            return $this->redirectToRoute('tv_findyourband_homepage');
         }
 
         return $this->render('TVUserBundle:User:delete.html.twig', array(
-          'user' => $user,
-          'form'   => $form->createView(),
+            'user' => $user,
+            'form'   => $form->createView(),
         ));
     }
        
@@ -189,11 +189,8 @@ class UserController extends Controller
             return $this->redirectToRoute('tv_admin_users');
         }
         return $this->render('TVUserBundle:User:bannish.html.twig', array(
-          'user' => $user,
-          'form'   => $form->createView(),
+            'user' => $user,
+            'form'   => $form->createView(),
         ));
-
-        
-        
     }
 }

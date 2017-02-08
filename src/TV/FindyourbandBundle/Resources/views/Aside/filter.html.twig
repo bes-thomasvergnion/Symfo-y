@@ -1,14 +1,16 @@
-    
+{# src/TV/Findyourband/Resources/views/Aside/filter.html.twig #}
+
     {{ form_start(form, {'attr': {'class': ''}}) }}
 
-        {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
 
         <ul>
-            <li>
-            {{ form_label(form.instrument, "Instrument:", {'label_attr': {'class': ''}}) }}
-            {{ form_widget(form.instrument, {'attr': {'class': ''}}) }}
-            </li>
+            {% if form.instrument is defined %}
+                <li>
+                {{ form_label(form.instrument, "Instrument:", {'label_attr': {'class': ''}}) }}
+                {{ form_widget(form.instrument, {'attr': {'class': ''}}) }}
+                </li>
+            {% endif %}
             <li>
             {{ form_label(form.genre, "Genre:", {'label_attr': {'class': ''}}) }}
             {{ form_widget(form.genre, {'attr': {'class': ''}}) }}
@@ -23,6 +25,5 @@
             </li>
         </ul>
         {{ form_widget(form.save, { 'label': 'Appliquer filtres' }) }}
-
 
     {{ form_end(form) }}

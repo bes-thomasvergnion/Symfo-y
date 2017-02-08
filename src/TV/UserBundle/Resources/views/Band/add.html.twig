@@ -50,14 +50,10 @@
                     {{ form_label(form.video, "Url vidéo Youtube", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
                     {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                {# Génération automatique des champs pas encore écrits.
-                Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-                et tous les champs cachés (type « hidden »). #}
                 
                 {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
                 {{ form_widget(form.save, { 'label': 'Créer groupe' }) }}
-                
-            {# Fermeture de la balise <form> du formulaire HTML #}
+
             {{ form_end(form) }}
         
         </div>

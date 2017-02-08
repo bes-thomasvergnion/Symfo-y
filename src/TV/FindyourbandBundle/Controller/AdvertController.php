@@ -71,7 +71,6 @@ class AdvertController extends Controller
     {
         $advert = new Advert();
         
-        /* Fonction permettant d'initier l'utilisateur qui poste l'annonce */
         $advert->setAuthor($this->container->get('security.token_storage')->getToken()->getUser());
         
         $form = $this->get('form.factory')->create(AdvertType::class, $advert);
@@ -105,25 +104,20 @@ class AdvertController extends Controller
         }
         
         $user = $advert->getAuthor();
-        /* Récupération de l'utilisateur courant */
         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
 
         if($currentUser == $user || $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
             $form = $this->get('form.factory')->create(AdvertEditType::class, $advert);
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-                // Inutile de persister ici, Doctrine connait déjà notre annonce
                 $em->flush();
-                
                 $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
-                
                 return $this->redirectToRoute('tv_findyourband_adverts_view', array('id' => $advert->getId()));
             }
 
             return $this->render('TVFindyourbandBundle:Advert:edit.html.twig', array(
                 'advert' => $advert,
                 'form'   => $form->createView(),
-                
             ));
         }
         else{
@@ -137,15 +131,12 @@ class AdvertController extends Controller
     public function deleteAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $advert = $em->getRepository('TVFindyourbandBundle:Advert')->find($id);
 
         if (null === $advert) {
             throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
         }
 
-        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-        // Cela permet de protéger la suppression d'annonce contre cette faille
         $form = $this->get('form.factory')->create();
         
         $user = $advert->getAuthor();

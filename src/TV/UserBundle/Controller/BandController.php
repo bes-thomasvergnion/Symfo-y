@@ -49,7 +49,7 @@ class BandController extends Controller
         $video_preg = preg_replace('#watch\?v=#', "embed/", $video);
        
         if (null === $band) {
-          throw new NotFoundHttpException("L'utilistaeur d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("L'utilistaeur d'id ".$id." n'existe pas.");
         }
 
         return $this->render('TVUserBundle:Band:view.html.twig', array(
@@ -100,17 +100,15 @@ class BandController extends Controller
         $form = $this->get('form.factory')->create(BandEditType::class, $band);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            // Inutile de persister ici, Doctrine connait déjà notre annonce
             $em->flush();
-
             $request->getSession()->getFlashBag()->add('notice', 'Groupe bien modifiée.');
 
             return $this->redirectToRoute('tv_band_view', array('id' => $band->getId()));
         }
 
         return $this->render('TVUserBundle:Band:edit.html.twig', array(
-          'band' => $band,
-          'form'   => $form->createView(),
+            'band' => $band,
+            'form'   => $form->createView(),
         ));
     }
     
@@ -120,29 +118,26 @@ class BandController extends Controller
     public function deleteAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $band = $em->getRepository('TVUserBundle:Band')->find($id);
 
         if (null === $band) {
-          throw new NotFoundHttpException("Le groupe d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("Le groupe d'id ".$id." n'existe pas.");
         }
 
-        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-        // Cela permet de protéger la suppression d'annonce contre cette faille
         $form = $this->get('form.factory')->create();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          $em->remove($band);
-          $em->flush();
+            $em->remove($band);
+            $em->flush();
 
-          $request->getSession()->getFlashBag()->add('info', "Le groupe a bien été supprimée.");
+            $request->getSession()->getFlashBag()->add('info', "Le groupe a bien été supprimée.");
 
-          return $this->redirectToRoute('tv_findyourband_homepage');
+            return $this->redirectToRoute('tv_findyourband_homepage');
         }
 
         return $this->render('TVUserBundle:Band:delete.html.twig', array(
-          'band' => $band,
-          'form'   => $form->createView(),
+            'band' => $band,
+            'form'   => $form->createView(),
         ));
     }
 }

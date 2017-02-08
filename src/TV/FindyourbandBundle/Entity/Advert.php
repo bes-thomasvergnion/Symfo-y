@@ -54,25 +54,29 @@ class Advert
     
     /**
      * @ORM\ManyToOne(targetEntity="TV\FindyourbandBundle\Entity\Province", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull
      */
     private $province;
     
     /**
      * @ORM\ManyToOne(targetEntity="TV\FindyourbandBundle\Entity\Level", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull
      */
     private $level;
     
     /**
      * @ORM\ManyToOne(targetEntity="TV\FindyourbandBundle\Entity\Instrument", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull
      */
     private $instrument;
     
     /**
      * @ORM\ManyToOne(targetEntity="TV\FindyourbandBundle\Entity\Genre", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull
      */
     private $genre;
 

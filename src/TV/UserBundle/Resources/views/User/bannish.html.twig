@@ -12,7 +12,6 @@
             <h2>Bannir utilisateur</h2>
             <p>Etes-vous certain de vouloir bannir cet utilistaeur et supprimer toutes ses annonces ?</p>
 
-            {# On met l'id de l'annonce dans la route de l'action du formulaire #}
             <form action="{{ path('tv_user_bannish', {'id': user.id}) }}" method="post">
                 <a href="{{ path('tv_user_view', {'id': user.id}) }}" class="btn modify">
                     <i class="glyphicon glyphicon-chevron-left"></i>
