@@ -20,18 +20,16 @@
     <body>
         <header>
             <div class="container">
-                <div id="connexion">
-                    {#<img src="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}{% if app.user.image.url is defined %}{{ asset(app.user.image.webPath) }}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{%endif%}{% else %}{{ asset('bundles/fyb/images/user.jpg') }}{% endif %}" alt="profil" id="photo_profil"/>#}
+                <div id="connexion">                   
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         {% if app.user.image.url is defined %}
-                            <div id="div_profil">
-                                
-                            </div>
+                            <div id="div_profil"> </div>
                             {% include "TVFindyourbandBundle:Pages:divprofil.html.twig" %}
-                            
-                            {% else %}<img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
+                        {% else %}
+                            <img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
                         {% endif %}
-                    {% else %}<img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
+                    {% else %}
+                        <img src="{{ asset('bundles/fyb/images/unconnected.jpg') }}" alt="profil" id="photo_profil" />
                     {% endif %}
                         
                     <ul>
